@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Painel Alcides Maya</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS da Escola (Separado) -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Lucide Icons CDN (Para ícones) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+</head>
+<body class="bg-light">
+
+    <script>
+        // Variável Global da API (Ajustada para o seu ambiente XAMPP)
+        const API_URL = 'http://localhost/api-escola/api.php';
+    </script>
+
+    <div class="d-flex flex-column align-items-center justify-content-center vh-100 w-100">
+        <div class="card shadow-lg" style="max-width: 400px; width: 100%; border-top: 8px solid var(--am-primary);">
+            <div class="card-body p-5">
+                <h2 class="text-3xl font-weight-bold text-center text-dark">Alcides Maya</h2>
+                <p class="text-md text-center text-muted mb-4">Acesso Coordenação</p>
+                
+                <div id="login-error" class="alert alert-danger d-none" role="alert"></div>
+
+                <div class="mb-3">
+                    <label class="form-label text-sm font-weight-bold">Usuário</label>
+                    <input type="text" id="admin-user" class="form-control focus-alcides" value="admin" placeholder="admin">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label text-sm font-weight-bold">Senha</label>
+                    <input type="password" id="admin-pass" class="form-control focus-alcides" value="123" placeholder="••••••">
+                </div>
+
+                <button id="login-btn" onclick="handleLogin()" class="btn btn-alcides w-100">
+                    ENTRAR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Função de Login
+        function handleLogin() {
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+            const errorEl = document.getElementById('login-error');
+            const btn = document.getElementById('login-btn');
+            
+            errorEl.classList.add('d-none');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Verificando...';
+
+            // Simulação: Verifica se é o admin padrão
+            if (user === 'admin' && pass === '123') {
+                // Salva a sessão simples no localStorage
+                localStorage.setItem('admin_auth', JSON.stringify({ user: user, name: 'Coordenação' }));
+                
+                // Redireciona para o painel principal (Avisos)
+                window.location.href = 'avisos.html'; 
+
+            } else {
+                errorEl.textContent = 'Usuário ou Senha inválidos (Use admin/123)';
+                errorEl.classList.remove('d-none');
+                btn.disabled = false;
+                btn.innerHTML = 'ENTRAR';
+            }
+        }
+    </script>
+</body>
+</html>

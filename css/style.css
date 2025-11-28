@@ -1,0 +1,80 @@
+/* CORES E ESTILOS GERAIS DA ALCIDES MAYA */
+
+:root {
+    --am-primary: #F4D35E; /* Amarelo */
+    --am-secondary: #E0D6AA; /* Bege do Botão */
+    --am-dark: #333333;
+    --am-light: #f8f9fa;
+}
+
+body {
+    background-color: var(--am-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar e Header */
+.sidebar {
+    background-color: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    height: 100vh;
+}
+
+.sidebar-header {
+    background-color: var(--am-primary);
+    color: var(--am-dark);
+    font-weight: bold;
+}
+
+.sidebar-item {
+    cursor: pointer;
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+    color: #495057;
+}
+
+.sidebar-item:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebar-item.active {
+    background-color: rgba(244, 211, 94, 0.3);
+    border-left-color: var(--am-primary);
+    font-weight: 600;
+    color: var(--am-dark);
+}
+
+/* Botões e Inputs Customizados */
+.btn-alcides {
+    background-color: var(--am-secondary);
+    color: var(--am-dark);
+    font-weight: bold;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-alcides:hover {
+    background-color: #d4c894;
+    color: var(--am-dark);
+}
+
+.focus-alcides:focus {
+    border-color: var(--am-primary);
+    box-shadow: 0 0 0 0.25rem rgba(244, 211, 94, 0.25);
+}
+
+/* Componente de Chat */
+.chat-container {
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 85vh;
+}
+
+.chat-message-left {
+    background-color: #e2e2e2;
+    border-radius: 10px 10px 10px 0;
+}
+
+.chat-message-right {
+    background-color: #dcf8c6; /* Verde claro do WhatsApp */
+    border-radius: 10px 10px 0 10px;
+}
