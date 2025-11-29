@@ -16,7 +16,7 @@
 
     <script>
         // Variável Global da API (Ajustada para o seu ambiente XAMPP)
-        const API_URL = 'http://localhost/api-escola/api.php';
+        const API_URL = 'http://localhost:8080/api-escola/api.php';
     </script>
 
     <div class="d-flex flex-column align-items-center justify-content-center vh-100 w-100">
@@ -46,7 +46,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Função de Login
         function handleLogin() {
             const user = document.getElementById('admin-user').value;
             const pass = document.getElementById('admin-pass').value;
@@ -57,13 +56,13 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Verificando...';
 
-            // Simulação: Verifica se é o admin padrão
+            // Simulação: Verifica se é o admin padrão (aqui não chamamos a API, é interno)
             if (user === 'admin' && pass === '123') {
                 // Salva a sessão simples no localStorage
                 localStorage.setItem('admin_auth', JSON.stringify({ user: user, name: 'Coordenação' }));
                 
-                // Redireciona para o painel principal (Avisos)
-                window.location.href = 'avisos.html'; 
+                // REDIRECIONA PARA O DASHBOARD PRINCIPAL
+                window.location.href = 'dashboard.html'; 
 
             } else {
                 errorEl.textContent = 'Usuário ou Senha inválidos (Use admin/123)';

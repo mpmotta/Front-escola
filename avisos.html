@@ -13,22 +13,16 @@
 </head>
 <body class="bg-light">
 
-    <!-- Variáveis Globais (Definidas aqui, ou lidas do localStorage) -->
     <script>
-        const API_URL = 'http://localhost/api-escola/api.php';
-        let APP_STATE = {
-            isLoggedIn: true,
-            userName: 'Coordenação',
-        };
+        const API_URL = 'http://localhost:8080/api-escola/api.php';
         
         // Simulação de verificação de autenticação
         const savedAuth = localStorage.getItem('admin_auth');
         if (!savedAuth) {
             window.location.href = 'index.html'; // Redireciona para o login se não estiver logado
-        } else {
-            APP_STATE.userName = JSON.parse(savedAuth).name;
         }
-
+        const APP_STATE = { userName: savedAuth ? JSON.parse(savedAuth).name : 'Admin' };
+        
         function handleLogout() {
             localStorage.removeItem('admin_auth');
             window.location.href = 'index.html';
@@ -58,7 +52,7 @@
         async function handleAvisoSubmit(button) {
             const titulo = document.getElementById('aviso-titulo').value;
             const corpo = document.getElementById('aviso-corpo').value;
-            // Prioridade SEMPRE ALTA, conforme o requisito
+            // PRIORIDADE HARDCODED (ALTA), CONFORME REQUISITO DE NEGÓCIO
             const prioridade = 'alta'; 
             const target = document.getElementById('aviso-target').value;
             
@@ -78,7 +72,7 @@
             });
 
             if (response.sucesso) {
-                showMessage('success', response.mensagem + ' (Verifique o log de push no console).', 'aviso-message');
+                showMessage('success', response.mensagem + ' O aviso foi salvo no banco.', 'aviso-message');
                 document.getElementById('aviso-titulo').value = '';
                 document.getElementById('aviso-corpo').value = '';
             } else {
@@ -117,12 +111,14 @@
                     <a href="chat.html" class="sidebar-item list-group-item list-group-item-action p-3 mb-1">
                         <i data-lucide="message-square" class="w-5 h-5 me-2"></i>
                         <span>Chat NADD</span>
-                        <span class="badge bg-danger rounded-pill float-end">2</span>
                     </a>
                     <a href="solicitacoes.html" class="sidebar-item list-group-item list-group-item-action p-3 mb-1">
                         <i data-lucide="file-text" class="w-5 h-5 me-2"></i>
                         <span>Solicitações</span>
-                        <span class="badge bg-danger rounded-pill float-end">5</span>
+                    </a>
+                    <a href="dashboard.html" class="sidebar-item list-group-item list-group-item-action p-3 mb-1">
+                        <i data-lucide="layout-dashboard" class="w-5 h-5 me-2"></i>
+                        <span>Dashboard</span>
                     </a>
                 </div>
             </nav>
@@ -149,9 +145,10 @@
 
             <div class="flex-grow-1 overflow-auto p-4">
                 <div class="d-flex justify-content-center">
-                    <div class="card shadow-lg p-4 mt-3" style="max-width: 900px; width: 100%;">
+                    <!-- LARGURA CORRIGIDA E CENTRALIZADA -->
+                    <div class="card shadow-lg p-4 mt-3" style="max-width: 600px; width: 100%;">
                         <h2 class="fs-4 fw-bold text-dark mb-4 d-flex align-items-center">
-                            <i data-lucide="bell" class="text-primary me-2 w-6 h-6"></i> Criar Novo Aviso e Disparar Push
+                            <i data-lucide="bell" class="text-primary me-2 w-6 h-6"></i> Criar Novo Aviso
                         </h2>
                         
                         <div id="aviso-message" class="alert d-none" role="alert"></div>
@@ -167,23 +164,20 @@
                                 <textarea rows="4" id="aviso-corpo" class="form-control focus-alcides" placeholder="Digite o conteúdo da notificação..."></textarea>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12">
                                 <label class="form-label font-weight-bold">Público Alvo</label>
                                 <select id="aviso-target" class="form-select focus-alcides">
                                   <option value="null">Todos os Alunos</option>
-                                  <option value="1">Téc. Informática</option>
-                                  <option value="2">Enfermagem</option>
+                                  <option value="tech_info">Téc. Informática</option>
+                                  <option value="tech_admin">Téc. Administração</option>
+                                  <option value="presencial">Todos os Téc. Presenciais</option>
+                                  <option value="ead">Todos os Téc. EAD</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label font-weight-bold">Prioridade da Notificação</label>
-                                <input type="text" class="form-control" value="ALTA (Sirene Vital)" disabled>
-                                <input type="hidden" id="aviso-prioridade" value="alta"> <!-- Campo oculto -->
-                            </div>
-
+                            
                             <div class="col-12">
                                 <button id="aviso-btn" onclick="handleAvisoSubmit(this)" class="btn btn-alcides w-100">
-                                    ENVIAR E SALVAR AVISO
+                                    ENVIAR E SALVAR AVISO (PRIORIDADE MÁXIMA)
                                 </button>
                             </div>
                         </div>

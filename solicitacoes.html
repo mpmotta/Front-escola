@@ -14,7 +14,7 @@
 <body class="bg-light">
 
     <script>
-        const API_URL = 'http://localhost/api-escola/api.php';
+        const API_URL = 'http://localhost:8080/api-escola/api.php';
         
         // Simulação de verificação de autenticação
         const savedAuth = localStorage.getItem('admin_auth');
@@ -51,15 +51,14 @@
             tableEl.classList.add('d-none');
             bodyEl.innerHTML = '';
 
-            // Busca todas as solicitações (simulando que o admin veria tudo)
-            fetchData('solicitacoes', 1) 
+            fetchData('solicitacoes', 1) // Busca dados do aluno ID 1 (simulação)
                 .then(data => {
                     loadingEl.classList.add('d-none');
                     if (data.sucesso && data.dados.length > 0) {
                         data.dados.forEach(sol => {
                             const statusMap = {
                                 'PENDENTE': { text: 'Pendente', class: 'bg-warning text-dark' },
-                                'EM_ANALISE': { text: 'Em Análise', class: 'bg-info text-dark' },
+                                'EM_ANALISE': { text: 'Em Análise', class: 'bg-info text-white' },
                                 'RESOLVIDO': { text: 'Resolvido', class: 'bg-success text-white' }
                             };
                             const statusInfo = statusMap[sol.status] || { text: 'Desconhecido', class: 'bg-secondary text-white' };
@@ -78,7 +77,6 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-sm btn-info text-white me-2">Responder</button>
-                                        <button class="btn btn-sm btn-outline-secondary">Ver Detalhes</button>
                                     </td>
                                 </tr>
                             `;
@@ -104,7 +102,7 @@
 
 
     <div class="d-flex flex-row" style="height: 100vh;">
-        <!-- SIDEBAR (Menu copiado dos outros ficheiros) -->
+        <!-- SIDEBAR -->
         <aside class="sidebar d-flex flex-column" style="width: 250px;">
             <div class="sidebar-header d-flex flex-column align-items-center justify-content-center p-3" style="height: 80px;">
                 <span class="font-weight-bolder fs-4">Alcides Maya</span>
@@ -120,12 +118,10 @@
                     <a href="chat.html" class="sidebar-item list-group-item list-group-item-action p-3 mb-1">
                         <i data-lucide="message-square" class="w-5 h-5 me-2"></i>
                         <span>Chat NADD</span>
-                        <span class="badge bg-danger rounded-pill float-end">2</span>
                     </a>
                     <a href="solicitacoes.html" class="sidebar-item list-group-item list-group-item-action p-3 mb-1 active">
                         <i data-lucide="file-text" class="w-5 h-5 me-2"></i>
                         <span>Solicitações</span>
-                        <span class="badge bg-danger rounded-pill float-end">5</span>
                     </a>
                 </div>
             </nav>
